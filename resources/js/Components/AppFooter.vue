@@ -11,7 +11,7 @@
           <i class="fas fa-life-ring"></i> <span class="ml-2">Support</span>
         </button>
         <span class="border-l border-gray-500 h-4"></span> 
-                <a href="https://github.com/yourusername" target="_blank" class="flex items-center text-white hover:underline">
+                <a href="https://github.com/cthornton7453/purrfect_typing" target="_blank" class="flex items-center text-white hover:underline">
           <i class="fab fa-github"></i> <span class="ml-2">GitHub</span>
         </a>
       </div>
