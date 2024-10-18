@@ -62,13 +62,9 @@ const toggleDropdown = () => {
 };
 
 const handleLogout = () => {
-    // Close dropdown immediately
     showDropdown.value = false;
-
-    // Show logging out overlay
     loggingOut.value = true;
 
-    // Simulate a delay for smoother transition
     setTimeout(() => {
       
         router.post('/logout', {}, {

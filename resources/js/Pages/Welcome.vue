@@ -35,10 +35,9 @@ function handleTyping(event: KeyboardEvent) {
 <template>
     <MainLayout :isAuthenticated="isAuthenticated" :userName="userName"> 
         <Head title="Purrfect Typing Test" />
-        <!-- Use overflow-hidden to prevent scrolling -->
         <div class="flex h-screen items-center justify-center bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 overflow-hidden">
             <div class="w-full max-w-3xl p-4">
-                <!-- Typing Words Section -->
+            
                 <div class="rounded bg-white p-6 text-center shadow-lg dark:bg-gray-800">
                     <div class="mb-4 text-xl">
                         <span
@@ -49,7 +48,6 @@ function handleTyping(event: KeyboardEvent) {
                             {{ word }}
                         </span>
                     </div>
-                    <!-- Typing Input -->
                     <input
                         v-model="userInput"
                         @keydown="handleTyping"

@@ -1,10 +1,10 @@
 <template>
     <div>
-      <!-- Persistent App Bar -->
+
       <AppBar :isAuthenticated="isAuthenticated" :userName="userName" />
   
       <!-- Main Content -->
-      <main class="pt-16"> <!-- Add padding-top to push content below the fixed app bar -->
+      <main class="pt-16"> 
         <slot />
       </main>
     </div>
