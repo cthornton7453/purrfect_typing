@@ -1,0 +1,24 @@
+<script setup lang="ts">
+import AppBar from '@/Components/AppBar.vue';
+
+defineProps({
+    hideAuthButtons: {
+        type: Boolean,
+        default: false,
+    },
+});
+</script>
+
+<template>
+    <AppBar :isAuthenticated="false" :hideAuthButtons="hideAuthButtons" />
+
+    <div
+        class="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0 dark:bg-gray-900"
+    >
+        <div
+            class="mt-6 w-full overflow-hidden bg-white px-6 py-4 sm:max-w-2xl lg:max-w-4xl sm:rounded-lg dark:bg-gray-900"
+        >
+            <slot />
+        </div>
+    </div>
+</template>
