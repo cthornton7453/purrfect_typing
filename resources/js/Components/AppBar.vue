@@ -88,7 +88,7 @@ const handleLogout = () => {
 }
 
 .hover-effect:hover {
-  color: #f39c12; /* Change text color on hover */
+  color: #f39c12; 
 }
 
 .hover-effect img {
@@ -96,21 +96,20 @@ const handleLogout = () => {
 }
 
 .hover-effect:hover img {
-  transform: scale(1.2); /* Scale the icon on hover */
-  filter: brightness(1.5); /* Make the icon brighter */
+  transform: scale(1.2); 
+  filter: brightness(1.5); 
 }
 
 .hover-effect span {
-  transition: color 0.3s ease; /* Add transition to span (username) */
+  transition: color 0.3s ease;
 }
 
 .hover-effect:hover span {
-  color: #f39c12; /* Change the username color on hover */
+  color: #f39c12; /
 }
 
 .hover-effect:active {
-  color: #d35400; /* Darker color when clicked */
-  /* Optional: you can also add an active effect to the image if desired */
+  color: #d35400; 
 }
 
 .loading-bar {
