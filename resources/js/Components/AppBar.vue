@@ -18,9 +18,10 @@
                         </div>
                     </div>
 
+                    <!-- Authenticated User -->
                     <template v-if="isAuthenticated">
                         <div class="relative">
-                            <button @click="toggleDropdown" class="flex items-center">
+                            <button @click="toggleDropdown" class="hover-effect flex items-center">
                                 <img src="/images/cat.svg" alt="Cat Icon" class="h-6 w-6" />
                                 <span class="ml-2 text-gray-800 dark:text-gray-200">{{ userName }}</span>
                             </button>
@@ -34,8 +35,9 @@
                         </div>
                     </template>
 
+                    <!-- Unauthenticated - Login Icon -->
                     <template v-else>
-                        <Link href="/login" class="text-gray-500 dark:text-gray-400">
+                        <Link href="/login" class="hover-effect flex items-center">
                             <img src="/images/cat.svg" alt="Cat Icon" class="h-6 w-6" />
                         </Link>
                     </template>
@@ -66,22 +68,54 @@ const handleLogout = () => {
     loggingOut.value = true;
 
     setTimeout(() => {
-      
         router.post('/logout', {}, {
             onFinish: () => {
                 loggingOut.value = false; 
             },
         });
     }, 2000); 
-   
 };
 </script>
 
 <style scoped>
+/* Hover effect for buttons and links */
+.hover-effect {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.hover-effect:hover {
+  color: #f39c12; /* Change text color on hover */
+}
+
+.hover-effect img {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.hover-effect:hover img {
+  transform: scale(1.2); /* Scale the icon on hover */
+  filter: brightness(1.5); /* Make the icon brighter */
+}
+
+.hover-effect span {
+  transition: color 0.3s ease; /* Add transition to span (username) */
+}
+
+.hover-effect:hover span {
+  color: #f39c12; /* Change the username color on hover */
+}
+
+.hover-effect:active {
+  color: #d35400; /* Darker color when clicked */
+  /* Optional: you can also add an active effect to the image if desired */
+}
+
 .loading-bar {
     width: 0;
     animation: loading 500ms ease-in-out forwards;
-
 }
 
 @keyframes loading {
