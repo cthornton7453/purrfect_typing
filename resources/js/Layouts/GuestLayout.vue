@@ -1,3 +1,4 @@
+//only used for login page?
 <script setup lang="ts">
 import AppBar from '@/Components/AppBar.vue';
 
