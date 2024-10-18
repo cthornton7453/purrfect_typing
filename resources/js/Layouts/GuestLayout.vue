@@ -1,25 +1,31 @@
-//only used for login page?
-<script setup lang="ts">
-import AppBar from '@/Components/AppBar.vue';
-
-defineProps({
-    hideAuthButtons: {
-        type: Boolean,
-        default: false,
-    },
-});
-</script>
-
+<!-- login page only?-->
 <template>
-    <AppBar :isAuthenticated="false" :hideAuthButtons="hideAuthButtons" />
-
-    <div
-        class="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0 dark:bg-gray-900"
-    >
+    <div class="flex flex-col min-h-screen">
+      <AppBar :isAuthenticated="false" :hideAuthButtons="hideAuthButtons" />
+  
+      <div
+        class="flex-grow flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0 dark:bg-gray-900"
+      >
         <div
-            class="mt-6 w-full overflow-hidden bg-white px-6 py-4 sm:max-w-2xl lg:max-w-4xl sm:rounded-lg dark:bg-gray-900"
+          class="mt-6 w-full overflow-hidden bg-white px-6 py-4 sm:max-w-2xl lg:max-w-4xl sm:rounded-lg dark:bg-gray-900"
         >
-            <slot />
+          <slot />
         </div>
+      </div>
+  
+      <Footer />
     </div>
-</template>
+  </template>
+  
+  <script setup lang="ts">
+  import AppBar from '@/Components/AppBar.vue';
+  import Footer from '@/Components/AppFooter.vue';
+  
+  defineProps({
+    hideAuthButtons: {
+      type: Boolean,
+      default: false,
+    },
+  });
+  </script>
+  
