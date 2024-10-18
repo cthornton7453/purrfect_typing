@@ -9,10 +9,10 @@
                 </div>
 
                 <div class="relative flex items-center">
-                    <div v-if="loggingOut" class="absolute inset-0 flex items-center justify-center bg-opacity-100 bg-white dark:bg-opacity-100 dark:bg-gray-800 z-20">
+                    <div v-if="loggingOut" class="fixed inset-0 flex items-center justify-center bg-opacity-100 bg-white dark:bg-opacity-100 dark:bg-gray-800 z-20">
                         <div class="flex items-center bg-white dark:bg-gray-800 p-4 rounded-md shadow-lg space-x-4"> 
                             <span class="whitespace-nowrap text-gray-800 dark:text-gray-200 text-lg">Logging out...</span>
-                            <div class="w-64 bg-gray-300 rounded-full h-2 dark:bg-gray-700"> 
+                            <div class="w-64 bg-gray-300 rounded-full h-2 dark:bg-gray-700 overflow-hidden"> 
                                 <div class="loading-bar h-2 rounded-full bg-indigo-500 dark:bg-indigo-400"></div>
                             </div>
                         </div>
@@ -81,6 +81,7 @@ const handleLogout = () => {
 .loading-bar {
     width: 0;
     animation: loading 500ms ease-in-out forwards;
+
 }
 
 @keyframes loading {
