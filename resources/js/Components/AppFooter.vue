@@ -39,7 +39,7 @@ const showSupportDialog = ref(false);
 </script>
 
 <style scoped>
-/* Hover effect for buttons and links */
+
 .hover-effect {
   position: relative;
   display: inline-flex;
@@ -50,7 +50,7 @@ const showSupportDialog = ref(false);
 }
 
 .hover-effect:hover {
-  color: #f39c12; /* Change text color on hover */
+  color: #f39c12;
 }
 
 .hover-effect i {
@@ -58,11 +58,11 @@ const showSupportDialog = ref(false);
 }
 
 .hover-effect:hover i {
-  transform: scale(1.2); /* Scale the icon on hover */
+  transform: scale(1.2); 
 }
 
 .hover-effect:active {
-  color: #d35400; /* Darker color when clicked */
+  color: #d35400; 
 }
 
 </style>

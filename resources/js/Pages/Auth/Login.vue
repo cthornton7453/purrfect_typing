@@ -54,7 +54,7 @@ const submitRegister = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Login / Register / Forgot Password" />
+        <Head title="Login / Register" />
         <div class="flex flex-col lg:flex-row justify-center items-center lg:space-x-12 space-y-8 lg:space-y-0 min-h-screen overflow-y-auto p-4">
             <div class="w-full max-w-md p-8 bg-white shadow-md rounded-md dark:bg-gray-800">
                 <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-6">

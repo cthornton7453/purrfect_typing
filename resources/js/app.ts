@@ -8,6 +8,9 @@ import { createPinia } from 'pinia';
 import { createApp, DefineComponent, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
+import 'primeicons/primeicons.css';
+import PrimeVue from 'primevue/config';
+
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 const pinia = createPinia();
 
@@ -22,6 +25,8 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
+            .use(PrimeVue)
+            .use(pinia)
             .mount(el);
     },
     progress: {
