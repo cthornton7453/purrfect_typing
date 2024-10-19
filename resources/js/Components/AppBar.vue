@@ -78,7 +78,6 @@ const handleLogout = () => {
 </script>
 
 <style scoped>
-/* Hover effect for buttons and links */
 .hover-effect {
   display: inline-flex;
   align-items: center;
@@ -105,7 +104,7 @@ const handleLogout = () => {
 }
 
 .hover-effect:hover span {
-  color: #f39c12; /
+  color: #f39c12; 
 }
 
 .hover-effect:active {
