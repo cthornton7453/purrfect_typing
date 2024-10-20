@@ -1,6 +1,6 @@
 <template>
-  <footer class="bg-gray-800 text-white py-4 fixed bottom-0 w-full text-sm">
-    <div class="container mx-auto flex justify-between items-center px-4"> 
+  <footer class="bg-gray-50 dark:bg-black text-gray-800 dark:text-white py-4 fixed bottom-0 w-full text-sm">
+    <div class="container mx-auto flex justify-between items-center px-4">
       
       <div class="flex items-center space-x-4">
         <button @click="showContactDialog = true" class="hover-effect flex items-center">
@@ -10,7 +10,7 @@
         <button @click="showSupportDialog = true" class="hover-effect flex items-center">
           <i class="fas fa-life-ring"></i> <span class="ml-2">Support</span>
         </button>
-        <span class="border-l border-gray-500 h-4"></span> 
+        <span class="border-l border-gray-500 h-4"></span>
         <a href="https://github.com/cthornton7453/purrfect_typing" target="_blank" class="hover-effect flex items-center">
           <i class="fab fa-github"></i> <span class="ml-2">GitHub</span>
         </a>
@@ -39,13 +39,12 @@ const showSupportDialog = ref(false);
 </script>
 
 <style scoped>
-
 .hover-effect {
   position: relative;
   display: inline-flex;
   align-items: center;
   cursor: pointer;
-  color: white;
+  color: inherit;
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
@@ -64,5 +63,4 @@ const showSupportDialog = ref(false);
 .hover-effect:active {
   color: #d35400; 
 }
-
 </style>

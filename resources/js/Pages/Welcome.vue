@@ -37,7 +37,6 @@ function handleTyping(event: KeyboardEvent) {
         <Head title="Purrfect Typing Test" />
         <div class="flex h-screen items-center justify-center bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 overflow-hidden">
             <div class="w-full max-w-3xl p-4">
-            
                 <div class="rounded bg-white p-6 text-center shadow-lg dark:bg-gray-800">
                     <div class="mb-4 text-xl">
                         <span
