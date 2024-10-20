@@ -1,3 +1,5 @@
+<!-- resources/js/Pages/Login.vue -->
+
 <script setup lang="ts">
 import Checkbox from '@/Components/Checkbox.vue';
 import InputError from '@/Components/InputError.vue';
@@ -56,11 +58,15 @@ const submitRegister = () => {
     <GuestLayout>
         <Head title="Login / Register" />
         <div class="flex flex-col lg:flex-row justify-center items-center lg:space-x-12 space-y-8 lg:space-y-0 min-h-screen overflow-y-auto p-4">
-            <div class="w-full max-w-md p-8 bg-white shadow-md rounded-md dark:bg-gray-800">
-                <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-6">
+            
+            <!-- Login / Forgot Password Section -->
+            <div class="w-full max-w-md p-8 bg-background shadow-md rounded-md transition-colors duration-500">
+                <h2 class="text-xl font-semibold text-text mb-6">
                     {{ isForgotPassword ? 'Forgot Password' : 'Login' }}
                 </h2>
                 <form @submit.prevent="isForgotPassword ? submitForgotPassword() : submitLogin()">
+                    
+                    <!-- Login Form -->
                     <div v-if="!isForgotPassword">
                         <div>
                             <InputLabel for="email" value="Email" />
@@ -68,7 +74,7 @@ const submitRegister = () => {
                             <TextInput
                                 id="email"
                                 type="email"
-                                class="mt-1 block w-full"
+                                class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
                                 v-model="loginForm.email"
                                 required
                                 autocomplete="username"
@@ -83,7 +89,7 @@ const submitRegister = () => {
                             <TextInput
                                 id="password"
                                 type="password"
-                                class="mt-1 block w-full"
+                                class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
                                 v-model="loginForm.password"
                                 required
                                 autocomplete="current-password"
@@ -92,14 +98,13 @@ const submitRegister = () => {
                             <InputError class="mt-2" :message="loginForm.errors.password" />
                         </div>
 
-                        <div class="mt-4 block">
-                            <label class="flex items-center">
-                                <Checkbox name="remember" v-model:checked="loginForm.remember" />
-                                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
-                            </label>
+                        <div class="mt-4 flex items-center">
+                            <Checkbox name="remember" v-model:checked="loginForm.remember" />
+                            <span class="ms-2 text-sm text-text">Remember me</span>
                         </div>
                     </div>
 
+                    <!-- Forgot Password Form -->
                     <div v-if="isForgotPassword">
                         <div>
                             <InputLabel for="forgot-email" value="Email" />
@@ -107,7 +112,7 @@ const submitRegister = () => {
                             <TextInput
                                 id="forgot-email"
                                 type="email"
-                                class="mt-1 block w-full"
+                                class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
                                 v-model="forgotPasswordForm.email"
                                 required
                                 autofocus
@@ -118,18 +123,19 @@ const submitRegister = () => {
                         </div>
                     </div>
 
+                    <!-- Form Actions -->
                     <div class="mt-4 flex items-center justify-between">
                         <a
                             href="#"
                             @click.prevent="isForgotPassword = !isForgotPassword"
-                            class="text-sm text-gray-600 dark:text-gray-400 hover:underline"
+                            class="text-sm text-primary hover:underline transition-colors duration-300"
                         >
                             {{ isForgotPassword ? 'Back to Login' : 'Forgot your password?' }}
                         </a>
 
                         <PrimaryButton
                             class="ms-4"
-                            :class="{ 'opacity-25': isForgotPassword ? forgotPasswordForm.processing : loginForm.processing }"
+                            :class="{ 'opacity-25 cursor-not-allowed': isForgotPassword ? forgotPasswordForm.processing : loginForm.processing }"
                             :disabled="isForgotPassword ? forgotPasswordForm.processing : loginForm.processing"
                         >
                             {{ isForgotPassword ? 'Email Password Reset Link' : 'Log in' }}
@@ -138,8 +144,9 @@ const submitRegister = () => {
                 </form>
             </div>
 
-            <div class="w-full max-w-md p-8 bg-white shadow-md rounded-md dark:bg-gray-800">
-                <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-6">Register</h2>
+            <!-- Register Section -->
+            <div class="w-full max-w-md p-8 bg-background shadow-md rounded-md transition-colors duration-500">
+                <h2 class="text-xl font-semibold text-text mb-6">Register</h2>
 
                 <form @submit.prevent="submitRegister">
                     <div>
@@ -148,7 +155,7 @@ const submitRegister = () => {
                         <TextInput
                             id="name"
                             type="text"
-                            class="mt-1 block w-full"
+                            class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
                             v-model="registerForm.name"
                             required
                             autocomplete="name"
@@ -163,7 +170,7 @@ const submitRegister = () => {
                         <TextInput
                             id="email"
                             type="email"
-                            class="mt-1 block w-full"
+                            class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
                             v-model="registerForm.email"
                             required
                             autocomplete="username"
@@ -178,7 +185,7 @@ const submitRegister = () => {
                         <TextInput
                             id="password"
                             type="password"
-                            class="mt-1 block w-full"
+                            class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
                             v-model="registerForm.password"
                             required
                             autocomplete="new-password"
@@ -193,7 +200,7 @@ const submitRegister = () => {
                         <TextInput
                             id="password_confirmation"
                             type="password"
-                            class="mt-1 block w-full"
+                            class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
                             v-model="registerForm.password_confirmation"
                             required
                             autocomplete="new-password"
@@ -205,7 +212,7 @@ const submitRegister = () => {
                     <div class="mt-4 flex items-center justify-end">
                         <PrimaryButton
                             class="ms-4"
-                            :class="{ 'opacity-25': registerForm.processing }"
+                            :class="{ 'opacity-25 cursor-not-allowed': registerForm.processing }"
                             :disabled="registerForm.processing"
                         >
                             Register
@@ -216,3 +223,37 @@ const submitRegister = () => {
         </div>
     </GuestLayout>
 </template>
+
+<style scoped>
+.hover-effect {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.hover-effect:hover {
+    color: secondary; /* Uses Tailwind's CSS variable-based class */
+}
+
+.hover-effect .pi {
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.hover-effect:hover .pi {
+    transform: scale(1.2);
+    filter: brightness(1.5);
+}
+
+.hover-effect span {
+    transition: color 0.3s ease;
+}
+
+.hover-effect:hover span {
+    color: secondary; /* Uses Tailwind's CSS variable-based class */
+}
+
+.hover-effect:active {
+    color: tertiary; /* Uses Tailwind's CSS variable-based class */
+}
+</style>
