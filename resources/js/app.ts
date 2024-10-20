@@ -8,6 +8,7 @@ import { createPinia } from 'pinia';
 import { createApp, DefineComponent, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
+import Aura from '@primevue/themes/aura';
 import 'primeicons/primeicons.css';
 import PrimeVue from 'primevue/config';
 
@@ -25,7 +26,16 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
-            .use(PrimeVue)
+            .use(PrimeVue, {
+                theme: {
+                    preset: Aura,
+                    options: {
+                        prefix: 'p',
+                        darkModeSelector: 'system',
+                        cssLayer: false,
+                    },
+                },
+            })
             .use(pinia)
             .mount(el);
     },
