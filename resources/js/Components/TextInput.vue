@@ -21,3 +21,7 @@ defineExpose({ focus: () => input.value?.focus() });
         ref="input"
     />
 </template>
+
+<style scoped>
+/* Add any component-specific styles here if necessary */
+</style>

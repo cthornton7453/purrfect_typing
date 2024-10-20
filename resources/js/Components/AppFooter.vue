@@ -1,7 +1,10 @@
+<!-- resources/js/Components/AppFooter.vue -->
+
 <template>
-  <footer class="bg-gray-50 dark:bg-black text-gray-800 dark:text-white py-4 fixed bottom-0 w-full text-sm">
+  <footer class="bg-background text-text py-4 fixed bottom-0 w-full text-sm transition-colors duration-500">
     <div class="container mx-auto flex justify-between items-center px-4">
       
+      <!-- Left Section: Links -->
       <div class="flex items-center space-x-4">
         <button @click="showContactDialog = true" class="hover-effect flex items-center">
           <i class="fas fa-envelope"></i> <span class="ml-2">Contact</span>
@@ -16,6 +19,17 @@
         </a>
       </div>
 
+      <!-- Center Section: Theme Toggle -->
+      <div class="flex items-center">
+        <ThemeToggle />
+      </div>
+
+      <!-- Right Section: Copyright -->
+      <div class="text-xs">
+        &copy; 2024 Purrfect Typing
+      </div>
+
+      <!-- Dialogs -->
       <Dialog v-if="showContactDialog" @close="showContactDialog = false" title="Contact Us">
         <p>You can reach us at contact@example.com or by phone at (123) 456-7890.</p>
       </Dialog>
@@ -23,9 +37,6 @@
         <p>For support, visit our Help Center or contact our support team at support@example.com.</p>
       </Dialog>
 
-      <div class="text-xs">
-        &copy; 2024 Purrfect Typing
-      </div>
     </div>
   </footer>
 </template>
@@ -33,6 +44,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Dialog from '@/Components/AppDialog.vue'; 
+import ThemeToggle from '@/Components/ThemeToggle.vue'; // Import ThemeToggle
 
 const showContactDialog = ref(false);
 const showSupportDialog = ref(false);

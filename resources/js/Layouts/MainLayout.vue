@@ -1,38 +1,48 @@
+<!-- resources/js/Layouts/MainLayout.vue -->
+
 <template>
-  <!-- App Bar -->
-  <nav class="fixed top-0 left-0 w-full z-10 bg-gray-50 dark:bg-black">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex h-16 justify-between items-center">
-        <div class="flex">
-          <Link href="/" class="text-xl font-bold text-gray-800 dark:text-gray-200">
-            Purrfect Typing
-          </Link>
-        </div>
+  <div class="min-h-screen flex flex-col transition-colors duration-500">
+    <!-- AppBar Component -->
+    <AppBar :isAuthenticated="isAuthenticated" :userName="userName" />
 
-        <!-- User Icon Component -->
-        <AppUserIcon :isAuthenticated="isAuthenticated" :userName="userName" />
-      </div>
-    </div>
-  </nav>
-  
-  <!-- Main Content -->
-  <div class="pt-16 min-h-screen flex flex-col justify-between">
-    <div class="flex-grow">
+    <!-- Main Content -->
+    <main class="flex-grow bg-background text-text transition-colors duration-500 pt-16">
       <slot></slot>
-    </div>
+    </main>
 
-    <!-- Footer Component -->
+    <!-- Footer -->
     <AppFooter />
   </div>
 </template>
 
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import AppUserIcon from '@/Components/User/AppUserIcon.vue';
-import AppFooter from '@/Components/AppFooter.vue'; 
+import { watch } from 'vue';
+import AppBar from '@/Components/AppBar.vue';
+import AppFooter from '@/Components/AppFooter.vue';
+import { useTheme } from '@/Composables/useTheme';
 
-defineProps({
-  isAuthenticated: Boolean,
-  userName: String,
+// Define the props that MainLayout expects to receive
+const props = defineProps({
+  isAuthenticated: {
+    type: Boolean,
+    required: true,
+  },
+  userName: {
+    type: String,
+    required: false,
+    default: '',
+  },
+});
+
+// Use the theme composable
+const { currentTheme } = useTheme();
+
+// Watch for theme changes and update the data-theme attribute
+watch(currentTheme, (newTheme) => {
+  document.documentElement.setAttribute('data-theme', newTheme.name);
 });
 </script>
+
+<style>
+/* Add any global styles here */
+</style>
