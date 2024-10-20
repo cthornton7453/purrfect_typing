@@ -1,3 +1,5 @@
+/* resources/css/app.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -21,4 +23,31 @@ body {
     body {
         overflow: auto;
     }
+}
+
+:root {
+    /* Light Theme Colors */
+    --color-primary: #4f46e5;
+    --color-secondary: #f59e0b;
+    --color-background: #ffffff;
+    --color-text: #1f2937;
+}
+
+/* Dark Theme Overrides */
+[data-theme='dark'] {
+    --color-primary: #6366f1;
+    --color-secondary: #fcd34d;
+    --color-background: #1f2937;
+    --color-text: #f3f4f6;
+}
+
+/* Tailwind-based colors using CSS variables */
+.text-theme-primary {
+    color: var(--color-primary);
+}
+.bg-theme-background {
+    background-color: var(--color-background);
+}
+.border-theme-primary {
+    border-color: var(--color-primary);
 }

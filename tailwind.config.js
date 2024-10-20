@@ -1,3 +1,5 @@
+// tailwind.config.js
+
 import forms from '@tailwindcss/forms';
 import defaultTheme from 'tailwindcss/defaultTheme';
 
@@ -16,10 +18,10 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                // Subtle accent colors for modern, minimal style
-                'accent-gray': '#2e2e2e',
-                'accent-light': '#f3f3f3',
-                'button-hover': '#3a3a3a',
+                primary: 'var(--color-primary)',
+                secondary: 'var(--color-secondary)',
+                background: 'var(--color-background)',
+                text: 'var(--color-text)',
             },
         },
     },
