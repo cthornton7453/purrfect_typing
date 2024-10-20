@@ -174,7 +174,7 @@ onBeforeUnmount(() => {
 }
 
 .hover-effect:hover {
-  color: secondary; /* Use Tailwind's CSS variable-based class */
+  color: secondary; 
 }
 
 .hover-effect .pi {
@@ -191,11 +191,11 @@ onBeforeUnmount(() => {
 }
 
 .hover-effect:hover span {
-  color: secondary; /* Use Tailwind's CSS variable-based class */
+  color: secondary;
 }
 
 .hover-effect:active {
-  color: tertiary; /* Use Tailwind's CSS variable-based class */
+  color: tertiary; 
 }
 
 .loading-bar {
