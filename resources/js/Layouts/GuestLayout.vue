@@ -10,7 +10,7 @@
       class="flex-grow flex flex-col items-center bg-background text-text pt-6 sm:justify-center sm:pt-0 transition-colors duration-500 lg:overflow-hidden overflow-auto"
     >
       <div
-        class="mt-6 w-full px-6 py-4 sm:max-w-2xl lg:max-w-4xl sm:rounded-lg bg-background text-text shadow-lg transition-colors duration-500"
+        class="mt-6 w-full px-6 py-4 sm:max-w-2xl lg:max-w-4xl sm:rounded-lg bg-background text-text transition-colors duration-500"
       >
         <slot />
       </div>

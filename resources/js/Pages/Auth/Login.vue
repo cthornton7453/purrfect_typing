@@ -60,7 +60,7 @@ const submitRegister = () => {
         <div class="flex flex-col lg:flex-row justify-center items-center lg:space-x-12 space-y-8 lg:space-y-0 min-h-screen overflow-y-auto p-4">
             
             <!-- Login / Forgot Password Section -->
-            <div class="w-full max-w-md p-8 bg-background shadow-md rounded-md transition-colors duration-500">
+            <div class="w-full max-w-md p-8 bg-background rounded-md transition-colors duration-500">
                 <h2 class="text-xl font-semibold text-text mb-6">
                     {{ isForgotPassword ? 'Forgot Password' : 'Login' }}
                 </h2>
@@ -145,7 +145,7 @@ const submitRegister = () => {
             </div>
 
             <!-- Register Section -->
-            <div class="w-full max-w-md p-8 bg-background shadow-md rounded-md transition-colors duration-500">
+            <div class="w-full max-w-md p-8 bg-background rounded-md transition-colors duration-500">
                 <h2 class="text-xl font-semibold text-text mb-6">Register</h2>
 
                 <form @submit.prevent="submitRegister">
@@ -255,5 +255,9 @@ const submitRegister = () => {
 
 .hover-effect:active {
     color: tertiary; /* Uses Tailwind's CSS variable-based class */
+}
+
+label {
+  color: var(--color-text); /* Dynamically uses text color based on theme */
 }
 </style>

@@ -40,3 +40,14 @@ body {
     --color-background: #1f2937;
     --color-text: #f3f4f6;
 }
+
+/* Tailwind-based colors using CSS variables */
+.text-theme-primary {
+    color: var(--color-primary);
+}
+.bg-theme-background {
+    background-color: var(--color-background);
+}
+.border-theme-primary {
+    border-color: var(--color-primary);
+}
