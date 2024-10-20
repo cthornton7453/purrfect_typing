@@ -57,7 +57,7 @@ const submitRegister = () => {
 <template>
     <GuestLayout>
         <Head title="Login / Register" />
-        <div class="flex flex-col lg:flex-row justify-center items-center lg:space-x-12 space-y-8 lg:space-y-0 min-h-screen overflow-y-auto p-4">
+        <div class="flex flex-col lg:flex-row justify-center items-start lg:space-x-12 space-y-8 lg:space-y-0 min-h-screen overflow-y-auto p-4">
             
             <!-- Login / Forgot Password Section -->
             <div class="w-full max-w-md p-8 bg-background rounded-md transition-colors duration-500">
@@ -233,7 +233,7 @@ const submitRegister = () => {
 }
 
 .hover-effect:hover {
-    color: secondary; /* Uses Tailwind's CSS variable-based class */
+    color: secondary; 
 }
 
 .hover-effect .pi {
@@ -250,14 +250,14 @@ const submitRegister = () => {
 }
 
 .hover-effect:hover span {
-    color: secondary; /* Uses Tailwind's CSS variable-based class */
+    color: primary; 
 }
 
 .hover-effect:active {
-    color: tertiary; /* Uses Tailwind's CSS variable-based class */
+    color: tertiary; 
 }
 
 label {
-  color: var(--color-text); /* Dynamically uses text color based on theme */
+  color: var(--color-text); 
 }
 </style>

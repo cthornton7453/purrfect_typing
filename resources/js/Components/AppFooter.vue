@@ -61,7 +61,7 @@ const showSupportDialog = ref(false);
 }
 
 .hover-effect:hover {
-  color: #f39c12;
+  color: #6366f1;
 }
 
 .hover-effect i {
@@ -73,6 +73,6 @@ const showSupportDialog = ref(false);
 }
 
 .hover-effect:active {
-  color: #d35400; 
+  color: #6366f0; 
 }
 </style>
