@@ -1,64 +1,14 @@
 <script setup lang="ts">
-import Checkbox from '@/Components/Checkbox.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import Loader from '@/Components/AppLoader.vue';
+import ForgotPasswordForm from '@/Components/Forms/ForgotPasswordForm.vue';
+import LoginForm from '@/Components/Forms/LoginForm.vue';
+import RegisterForm from '@/Components/Forms/RegisterForm.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import Loader from '@/Components/AppLoader.vue'; 
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const isForgotPassword = ref(false);
-
-const loginForm = useForm({
-    email: '',
-    password: '',
-    remember: false,
-});
-
-const forgotPasswordForm = useForm({
-    email: '',
-});
-
-const registerForm = useForm({
-    username: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-});
-
 const showLoader = ref(false);
-
-const submitLogin = () => {
-    showLoader.value = true;
-    loginForm.post(route('login'), {
-        onFinish: () => {
-            loginForm.reset('password');
-            showLoader.value = false; 
-        },
-    });
-};
-
-const submitForgotPassword = () => {
-    showLoader.value = true;
-    forgotPasswordForm.post(route('password.email'), {
-        onFinish: () => {
-            forgotPasswordForm.reset();
-            showLoader.value = false; 
-        },
-    });
-};
-
-const submitRegister = () => {
-    showLoader.value = true;
-    registerForm.post(route('register'), {
-        onFinish: () => {
-            registerForm.reset('username', 'password', 'password_confirmation');
-            showLoader.value = false;
-        },
-    });
-};
 </script>
 
 <template>
@@ -68,182 +18,51 @@ const submitRegister = () => {
         <!-- Loader Overlay -->
         <Loader v-if="showLoader" message="Processing..." />
 
-        <!-- Page Content -->
-        <div v-else class="flex flex-col lg:flex-row justify-center items-start lg:space-x-12 space-y-8 lg:space-y-0 min-h-screen overflow-y-auto p-4">
+        <div
+            v-else
+            class="flex min-h-screen flex-col items-start justify-center space-y-8 overflow-y-auto p-4 lg:flex-row lg:space-x-12 lg:space-y-0"
+        >
             <!-- Login / Forgot Password Section -->
-            <div class="w-full max-w-md p-8 bg-background rounded-md transition-colors duration-500">
-                <h2 class="text-xl font-semibold text-text mb-6">
+            <div
+                class="w-full max-w-md rounded-md bg-background p-8 transition-colors duration-500"
+            >
+                <h2 class="mb-6 text-xl font-semibold text-text">
                     {{ isForgotPassword ? 'Forgot Password' : 'Login' }}
                 </h2>
-                <form @submit.prevent="isForgotPassword ? submitForgotPassword() : submitLogin()">
-                    
-                    <!-- Login Form -->
-                    <div v-if="!isForgotPassword">
-                        <div>
-                            <InputLabel for="email" value="Email" />
-                            <TextInput
-                                id="email"
-                                type="email"
-                                class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
-                                v-model="loginForm.email"
-                                required
-                                autocomplete="email"
-                            />
-                            <InputError class="mt-2" :message="loginForm.errors.email" />
-                        </div>
 
-                        <div class="mt-4">
-                            <InputLabel for="password" value="Password" />
-                            <TextInput
-                                id="password"
-                                type="password"
-                                class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
-                                v-model="loginForm.password"
-                                required
-                                autocomplete="current-password"
-                            />
-                            <InputError class="mt-2" :message="loginForm.errors.password" />
-                        </div>
-
-                        <div class="mt-4 flex items-center">
-                            <Checkbox name="remember" v-model:checked="loginForm.remember" />
-                            <span class="ms-2 text-sm text-text">Remember me</span>
-                        </div>
-                    </div>
-
-                    <!-- Forgot Password Form -->
-                    <div v-if="isForgotPassword">
-                        <div>
-                            <InputLabel for="forgot-email" value="Email" />
-                            <TextInput
-                                id="forgot-email"
-                                type="email"
-                                class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
-                                v-model="forgotPasswordForm.email"
-                                required
-                                autofocus
-                                autocomplete="username"
-                            />
-                            <InputError class="mt-2" :message="forgotPasswordForm.errors.email" />
-                        </div>
-                    </div>
-
-                    <!-- Form Actions -->
-                    <div class="mt-4 flex items-center justify-between">
+                <!-- Conditional Login/Forgot Password Forms -->
+                <LoginForm v-if="!isForgotPassword">
+                    <template #forgot-password-link>
                         <a
                             href="#"
-                            @click.prevent="isForgotPassword = !isForgotPassword"
+                            @click.prevent="isForgotPassword = true"
                             class="hover-effect text-sm"
                         >
-                            {{ isForgotPassword ? 'Back to Login' : 'Forgot your password?' }}
+                            Forgot your password?
                         </a>
+                    </template>
+                </LoginForm>
 
-                        <PrimaryButton
-                            class="ms-4"
-                            :class="{ 'opacity-25 cursor-not-allowed': isForgotPassword ? forgotPasswordForm.processing : loginForm.processing }"
-                            :disabled="isForgotPassword ? forgotPasswordForm.processing : loginForm.processing"
+                <ForgotPasswordForm v-else>
+                    <template #back-to-login-link>
+                        <a
+                            href="#"
+                            @click.prevent="isForgotPassword = false"
+                            class="hover-effect text-sm"
                         >
-                            {{ isForgotPassword ? 'Email Password Reset Link' : 'Log in' }}
-                        </PrimaryButton>
-                    </div>
-                </form>
+                            Back to Login
+                        </a>
+                    </template>
+                </ForgotPasswordForm>
             </div>
 
             <!-- Register Section -->
-            <div class="w-full max-w-md p-8 bg-background rounded-md transition-colors duration-500">
-                <h2 class="text-xl font-semibold text-text mb-6">Register</h2>
-                <form @submit.prevent="submitRegister">
-                    <div>
-                        <InputLabel for="username" value="Username" />
-                        <TextInput
-                            id="username"
-                            type="text"
-                            class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
-                            v-model="registerForm.username"
-                            required
-                            autocomplete="username"
-                        />
-                        <InputError class="mt-2" :message="registerForm.errors.username" />
-                    </div>
-
-                    <div class="mt-4">
-                        <InputLabel for="email" value="Email" />
-                        <TextInput
-                            id="email"
-                            type="email"
-                            class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
-                            v-model="registerForm.email"
-                            required
-                            autocomplete="username"
-                        />
-                        <InputError class="mt-2" :message="registerForm.errors.email" />
-                    </div>
-
-                    <div class="mt-4">
-                        <InputLabel for="password" value="Password" />
-                        <TextInput
-                            id="password"
-                            type="password"
-                            class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
-                            v-model="registerForm.password"
-                            required
-                            autocomplete="new-password"
-                        />
-                        <InputError class="mt-2" :message="registerForm.errors.password" />
-                    </div>
-
-                    <div class="mt-4">
-                        <InputLabel for="password_confirmation" value="Confirm Password" />
-                        <TextInput
-                            id="password_confirmation"
-                            type="password"
-                            class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
-                            v-model="registerForm.password_confirmation"
-                            required
-                            autocomplete="new-password"
-                        />
-                        <InputError class="mt-2" :message="registerForm.errors.password_confirmation" />
-                    </div>
-
-                    <div class="mt-4 flex items-center justify-end">
-                        <PrimaryButton
-                            class="ms-4"
-                            :class="{ 'opacity-25 cursor-not-allowed': registerForm.processing }"
-                            :disabled="registerForm.processing"
-                        >
-                            Register
-                        </PrimaryButton>
-                    </div>
-                </form>
+            <div
+                class="w-full max-w-md rounded-md bg-background p-8 transition-colors duration-500"
+            >
+                <h2 class="mb-6 text-xl font-semibold text-text">Register</h2>
+                <RegisterForm />
             </div>
         </div>
     </GuestLayout>
 </template>
-
-<style scoped>
-
-.hover-effect {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  color: inherit;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.hover-effect:hover {
-  color: var(--color-primary);
-}
-
-.hover-effect i {
-  transition: transform 0.3s ease;
-}
-
-.hover-effect:hover i {
-  transform: scale(1.2); 
-}
-
-.hover-effect:active {
-  color: var(--color-primary); 
-}
-</style>
