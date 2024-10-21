@@ -47,7 +47,7 @@
             <div class="py-1">
               <button
                 @click="handleLogout"
-                class="block w-full text-left px-4 py-2 text-primary hover:bg-secondary transition-colors duration-300"
+                class="block w-full text-left px-4 py-2 text-primary hover:bg-secondary transition-colors duration-500"
                 aria-label="Log Out"
               >
                 Log Out

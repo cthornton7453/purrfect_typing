@@ -3,9 +3,9 @@
 <template>
   <MainLayout :isAuthenticated="isAuthenticated" :userName="userName">
     <Head title="Purrfect Typing Test" />
-    <div class="flex h-[80vh] items-center justify-center bg-background text-text/50 transition-colors duration-250">
+    <div class="flex h-[80vh] items-center justify-center bg-background text-text/50 transition-colors duration-500">
       <div class="w-full max-w-3xl p-4">
-        <div class="rounded bg-background p-6 text-center  transition-colors duration-250">
+        <div class="rounded bg-background p-6 text-center  transition-colors duration-500">
           <div class="mb-4 text-xl">
             <span
               v-for="(word, index) in typingWords"
@@ -19,7 +19,7 @@
           <input
             v-model="userInput"
             @keydown="handleTyping"
-            class="w-full rounded border border-secondary p-3 text-lg focus:ring-2 focus:ring-primary transition-colors bg-background text-text placeholder-text focus:outline-none"
+            class="w-full rounded border border-secondary p-3 text-lg focus:ring-2 focus:ring-primary transition-colors duration-500 bg-background text-text placeholder-text focus:outline-none"
             placeholder="Start typing here..."
             autofocus
           />
