@@ -1,5 +1,3 @@
-<!-- resources/js/Pages/Login.vue -->
-
 <script setup lang="ts">
 import Checkbox from '@/Components/Checkbox.vue';
 import InputError from '@/Components/InputError.vue';
@@ -7,6 +5,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
+import Loader from '@/Components/AppLoader.vue'; 
 import { Head, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
@@ -23,32 +22,40 @@ const forgotPasswordForm = useForm({
 });
 
 const registerForm = useForm({
-    name: '',
+    username: '',
     email: '',
     password: '',
     password_confirmation: '',
 });
 
+const showLoader = ref(false);
+
 const submitLogin = () => {
+    showLoader.value = true;
     loginForm.post(route('login'), {
         onFinish: () => {
             loginForm.reset('password');
+            showLoader.value = false; 
         },
     });
 };
 
 const submitForgotPassword = () => {
+    showLoader.value = true;
     forgotPasswordForm.post(route('password.email'), {
         onFinish: () => {
             forgotPasswordForm.reset();
+            showLoader.value = false; 
         },
     });
 };
 
 const submitRegister = () => {
+    showLoader.value = true;
     registerForm.post(route('register'), {
         onFinish: () => {
-            registerForm.reset('password', 'password_confirmation');
+            registerForm.reset('username', 'password', 'password_confirmation');
+            showLoader.value = false;
         },
     });
 };
@@ -57,8 +64,12 @@ const submitRegister = () => {
 <template>
     <GuestLayout>
         <Head title="Login / Register" />
-        <div class="flex flex-col lg:flex-row justify-center items-start lg:space-x-12 space-y-8 lg:space-y-0 min-h-screen overflow-y-auto p-4">
-            
+
+        <!-- Loader Overlay -->
+        <Loader v-if="showLoader" message="Processing..." />
+
+        <!-- Page Content -->
+        <div v-else class="flex flex-col lg:flex-row justify-center items-start lg:space-x-12 space-y-8 lg:space-y-0 min-h-screen overflow-y-auto p-4">
             <!-- Login / Forgot Password Section -->
             <div class="w-full max-w-md p-8 bg-background rounded-md transition-colors duration-500">
                 <h2 class="text-xl font-semibold text-text mb-6">
@@ -70,22 +81,19 @@ const submitRegister = () => {
                     <div v-if="!isForgotPassword">
                         <div>
                             <InputLabel for="email" value="Email" />
-
                             <TextInput
                                 id="email"
                                 type="email"
                                 class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
                                 v-model="loginForm.email"
                                 required
-                                autocomplete="username"
+                                autocomplete="email"
                             />
-
                             <InputError class="mt-2" :message="loginForm.errors.email" />
                         </div>
 
                         <div class="mt-4">
                             <InputLabel for="password" value="Password" />
-
                             <TextInput
                                 id="password"
                                 type="password"
@@ -94,7 +102,6 @@ const submitRegister = () => {
                                 required
                                 autocomplete="current-password"
                             />
-
                             <InputError class="mt-2" :message="loginForm.errors.password" />
                         </div>
 
@@ -108,7 +115,6 @@ const submitRegister = () => {
                     <div v-if="isForgotPassword">
                         <div>
                             <InputLabel for="forgot-email" value="Email" />
-
                             <TextInput
                                 id="forgot-email"
                                 type="email"
@@ -118,7 +124,6 @@ const submitRegister = () => {
                                 autofocus
                                 autocomplete="username"
                             />
-
                             <InputError class="mt-2" :message="forgotPasswordForm.errors.email" />
                         </div>
                     </div>
@@ -147,26 +152,22 @@ const submitRegister = () => {
             <!-- Register Section -->
             <div class="w-full max-w-md p-8 bg-background rounded-md transition-colors duration-500">
                 <h2 class="text-xl font-semibold text-text mb-6">Register</h2>
-
                 <form @submit.prevent="submitRegister">
                     <div>
-                        <InputLabel for="name" value="Name" />
-
+                        <InputLabel for="username" value="Username" />
                         <TextInput
-                            id="name"
+                            id="username"
                             type="text"
                             class="mt-1 block w-full bg-background text-text border border-secondary focus:ring-primary focus:border-primary transition-colors duration-300"
-                            v-model="registerForm.name"
+                            v-model="registerForm.username"
                             required
-                            autocomplete="name"
+                            autocomplete="username"
                         />
-
-                        <InputError class="mt-2" :message="registerForm.errors.name" />
+                        <InputError class="mt-2" :message="registerForm.errors.username" />
                     </div>
 
                     <div class="mt-4">
                         <InputLabel for="email" value="Email" />
-
                         <TextInput
                             id="email"
                             type="email"
@@ -175,13 +176,11 @@ const submitRegister = () => {
                             required
                             autocomplete="username"
                         />
-
                         <InputError class="mt-2" :message="registerForm.errors.email" />
                     </div>
 
                     <div class="mt-4">
                         <InputLabel for="password" value="Password" />
-
                         <TextInput
                             id="password"
                             type="password"
@@ -190,13 +189,11 @@ const submitRegister = () => {
                             required
                             autocomplete="new-password"
                         />
-
                         <InputError class="mt-2" :message="registerForm.errors.password" />
                     </div>
 
                     <div class="mt-4">
                         <InputLabel for="password_confirmation" value="Confirm Password" />
-
                         <TextInput
                             id="password_confirmation"
                             type="password"
@@ -205,7 +202,6 @@ const submitRegister = () => {
                             required
                             autocomplete="new-password"
                         />
-
                         <InputError class="mt-2" :message="registerForm.errors.password_confirmation" />
                     </div>
 
@@ -225,39 +221,5 @@ const submitRegister = () => {
 </template>
 
 <style scoped>
-.hover-effect {
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.hover-effect:hover {
-    color: secondary; 
-}
-
-.hover-effect .pi {
-    transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.hover-effect:hover .pi {
-    transform: scale(1.2);
-    filter: brightness(1.5);
-}
-
-.hover-effect span {
-    transition: color 0.3s ease;
-}
-
-.hover-effect:hover span {
-    color: primary; 
-}
-
-.hover-effect:active {
-    color: tertiary; 
-}
-
-label {
-  color: var(--color-text); 
-}
+/* Scoped styling for the loader remains the same */
 </style>

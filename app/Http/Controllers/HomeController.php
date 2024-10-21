@@ -11,7 +11,7 @@ class HomeController extends Controller
     {
         return Inertia::render('Welcome', [
             'isAuthenticated' => Auth::check(),
-            'userName' => Auth::user() ? Auth::user()->name : null,
+            'userName' => Auth::user() ? Auth::user()->username : null,
         ]);
     }
 }

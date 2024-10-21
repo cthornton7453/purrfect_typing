@@ -1,21 +1,7 @@
-<!-- resources/js/Components/User/AppUserIcon.vue -->
-
 <template>
   <div class="relative flex items-center" ref="userIconRef">
     <!-- Loading Overlay -->
-    <div
-      v-if="loggingOut"
-      class="fixed inset-0 flex items-center justify-center bg-opacity-100 bg-background dark:bg-opacity-100 dark:bg-background z-50"
-    >
-      <div class="flex items-center bg-background dark:bg-background p-4 rounded-md shadow-lg space-x-4">
-        <span class="whitespace-nowrap text-text text-lg">
-          Logging out...
-        </span>
-        <div class="w-64 bg-gray-300 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
-          <div class="loading-bar h-2 rounded-full bg-primary dark:bg-primary"></div>
-        </div>
-      </div>
-    </div>
+    <AppLoader v-if="loggingOut" message="Logging out..." />
 
     <!-- Authenticated User -->
     <template v-if="isAuthenticated">
@@ -71,6 +57,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
 import { Link, router } from '@inertiajs/vue3';
+import AppLoader from '@/Components/AppLoader.vue'; // Import AppLoader
 
 // Define Props
 const props = defineProps({
