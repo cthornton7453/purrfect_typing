@@ -133,7 +133,7 @@ const submitRegister = () => {
                         <a
                             href="#"
                             @click.prevent="isForgotPassword = !isForgotPassword"
-                            class="text-sm text-primary hover:underline transition-colors duration-300"
+                            class="hover-effect text-sm"
                         >
                             {{ isForgotPassword ? 'Back to Login' : 'Forgot your password?' }}
                         </a>
@@ -221,5 +221,29 @@ const submitRegister = () => {
 </template>
 
 <style scoped>
-/* Scoped styling for the loader remains the same */
+
+.hover-effect {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  color: inherit;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.hover-effect:hover {
+  color: var(--color-primary);
+}
+
+.hover-effect i {
+  transition: transform 0.3s ease;
+}
+
+.hover-effect:hover i {
+  transform: scale(1.2); 
+}
+
+.hover-effect:active {
+  color: var(--color-primary); 
+}
 </style>
