@@ -15,7 +15,6 @@
                 aria-haspopup="true"
                 :aria-expanded="showDropdownComputed"
             >
-                <!-- Icon with No Background -->
                 <i class="pi pi-user mr-2 text-primary"></i>
                 <span class="text-text">{{ userName }}</span>
             </div>
@@ -46,7 +45,6 @@
         <!-- Unauthenticated - Login Icon -->
         <template v-else>
             <Link href="/login" class="hover-effect flex items-center">
-                <!-- Icon with No Background -->
                 <i class="pi pi-user mr-2 text-primary"></i>
             </Link>
         </template>
@@ -54,23 +52,13 @@
 </template>
 
 <script setup lang="ts">
-import AppLoader from '@/Components/AppLoader.vue'; // Import AppLoader
-import { Link, router } from '@inertiajs/vue3';
+import AppLoader from '@/Components/AppLoader.vue';
+import { Link, router, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
-
-// Define Props
-const props = defineProps({
-    isAuthenticated: {
-        type: Boolean,
-        required: true,
-    },
-    userName: {
-        type: String,
-        required: false,
-        default: '',
-    },
-});
+const { props } = usePage();
+const isAuthenticated = props.auth.isAuthenticated;
+const userName = props.auth.userName;
 
 const showDropdown = ref(false);
 const loggingOut = ref(false);
@@ -103,27 +91,19 @@ const calculateDropdownPosition = () => {
     }
 };
 
-const handleClickOutside = () => {
-    isHoveringAvatar.value = false;
-    isHoveringDropdown.value = false;
-};
-
 const handleLogout = () => {
     isHoveringAvatar.value = false;
     isHoveringDropdown.value = false;
     loggingOut.value = true;
 
-    setTimeout(() => {
-        router.post(
-            '/logout',
-            {},
-            {
-                onFinish: () => {
-                    loggingOut.value = false;
-                },
-            },
-        );
-    }, 2000);
+    router.post('/logout', {}, {
+        onFinish: () => {
+            setTimeout(() => {
+                loggingOut.value = false;
+                router.visit('/', { method: 'get' });
+            }, 1500);
+        },
+    });
 };
 
 watch(showDropdownComputed, (newVal) => {
@@ -146,72 +126,5 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-    transition:
-        opacity 0.3s,
-        transform 0.3s;
-}
-.fade-enter-from {
-    opacity: 0;
-    transform: translateY(-10px);
-}
-.fade-leave-to {
-    opacity: 0;
-    transform: translateY(-10px);
-}
-
-.hover-effect {
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    transition:
-        color 0.3s ease,
-        transform 0.3s ease;
-}
-
-.hover-effect:hover {
-    color: secondary;
-}
-
-.hover-effect .pi {
-    transition:
-        transform 0.3s ease,
-        filter 0.3s ease;
-}
-
-.hover-effect:hover .pi {
-    transform: scale(1.2);
-    filter: brightness(1.5);
-}
-
-.hover-effect span {
-    transition: color 0.3s ease;
-}
-
-.hover-effect:hover span {
-    color: secondary;
-}
-
-.hover-effect:active {
-    color: tertiary;
-}
-
-.loading-bar {
-    width: 0;
-    animation: loading 500ms ease-in-out forwards;
-}
-
-@keyframes loading {
-    0% {
-        width: 0;
-    }
-    100% {
-        width: 100%;
-    }
-}
-
-.fixed {
-    position: fixed;
-}
+/* Add styles if necessary */
 </style>

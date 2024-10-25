@@ -1,36 +1,27 @@
-<!-- resources/js/Layouts/GuestLayout.vue -->
-
 <template>
-  <div class="flex flex-col min-h-screen">
-    <!-- AppBar Component -->
-    <AppBar :isAuthenticated="false" :hideAuthButtons="hideAuthButtons" />
+    <div class="flex min-h-screen flex-col">
+        <!-- AppBar Component -->
+        <AppBar />
 
-    <!-- Main Content Area -->
-    <div
-      class="flex-grow flex flex-col items-center bg-background text-text pt-6 lg:pt-20 sm:justify-center sm:pt-0 transition-colors duration-500 lg:overflow-hidden overflow-auto"
-    >
-      <div
-        class="mt-6 w-full px-6 py-4 sm:max-w-2xl lg:max-w-4xl sm:rounded-lg bg-background text-text transition-colors duration-500"
-      >
-        <slot />
-      </div>
+        <!-- Main Content Area -->
+        <div
+            class="flex flex-grow flex-col items-center overflow-auto bg-background pt-6 text-text transition-colors duration-500 sm:justify-center sm:pt-0 lg:overflow-hidden lg:pt-20"
+        >
+            <div
+                class="mt-6 w-full bg-background px-6 py-4 text-text transition-colors duration-500 sm:max-w-2xl sm:rounded-lg lg:max-w-4xl"
+            >
+                <slot />
+            </div>
+        </div>
+
+        <!-- Footer Component -->
+        <Footer class="footer" />
     </div>
-
-    <!-- Footer Component -->
-    <Footer class="footer" />
-  </div>
 </template>
 
 <script setup lang="ts">
 import AppBar from '@/Components/AppBar.vue';
 import Footer from '@/Components/AppFooter.vue';
-
-const props = defineProps({
-  hideAuthButtons: {
-    type: Boolean,
-    default: false,
-  },
-});
 </script>
 
 <style scoped>
@@ -40,8 +31,8 @@ const props = defineProps({
 }
 
 @media (max-width: 1024px) {
-  .footer {
-    position: static;
-  }
+    .footer {
+        position: static;
+    }
 }
 </style>

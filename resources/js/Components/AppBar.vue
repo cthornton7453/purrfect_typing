@@ -1,5 +1,3 @@
-<!-- resources/js/Components/AppBar.vue -->
-
 <template>
     <nav
         class="fixed left-0 top-0 z-10 w-full bg-background text-text transition-colors duration-500"
@@ -14,10 +12,7 @@
 
                 <div class="flex items-center space-x-4">
                     <!-- User Icon -->
-                    <AppUserIcon
-                        :isAuthenticated="isAuthenticated"
-                        :userName="userName"
-                    />
+                    <AppUserIcon />
                 </div>
             </div>
         </div>
@@ -27,19 +22,6 @@
 <script setup lang="ts">
 import AppUserIcon from '@/Components/User/AppUserIcon.vue';
 import { Link } from '@inertiajs/vue3';
-import { defineProps } from 'vue';
-
-const props = defineProps({
-    isAuthenticated: {
-        type: Boolean,
-        required: true,
-    },
-    userName: {
-        type: String,
-        required: false,
-        default: '',
-    },
-});
 </script>
 
 <style scoped>
