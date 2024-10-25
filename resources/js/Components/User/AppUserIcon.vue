@@ -28,7 +28,6 @@
                         class="fixed z-30 w-48 rounded-md bg-background text-text shadow-lg ring-1 ring-black ring-opacity-5"
                         @mouseenter="isHoveringDropdown = true"
                         @mouseleave="isHoveringDropdown = false"
-                        v-click-outside="handleClickOutside"
                     >
                         <div class="py-1">
                             <button
@@ -58,6 +57,7 @@
 import AppLoader from '@/Components/AppLoader.vue'; // Import AppLoader
 import { Link, router } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+
 
 // Define Props
 const props = defineProps({
