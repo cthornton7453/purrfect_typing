@@ -2,7 +2,7 @@ import '../css/app.css';
 import './bootstrap';
 
 import '@fortawesome/fontawesome-free/css/all.css';
-import { createInertiaApp } from '@inertiajs/vue3';
+import { createInertiaApp, router } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createPinia } from 'pinia';
 import { createApp, DefineComponent, h } from 'vue';
@@ -14,6 +14,15 @@ import PrimeVue from 'primevue/config';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 const pinia = createPinia();
+
+// New router events
+router.on('before', (event) => {
+    // ...
+});
+
+router.on('success', (event) => {
+    // ...
+});
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

@@ -55,10 +55,11 @@
 import AppLoader from '@/Components/AppLoader.vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import type { PageProps } from '@/types';
 
-const { props } = usePage();
-const isAuthenticated = props.auth.isAuthenticated;
-const userName = props.auth.userName;
+const { props } = usePage<PageProps>();
+const isAuthenticated = computed(() => props.auth.user !== null);
+const userName = computed(() => props.auth.user?.username);
 
 const showDropdown = ref(false);
 const loggingOut = ref(false);

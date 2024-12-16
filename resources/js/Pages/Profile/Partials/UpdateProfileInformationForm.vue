@@ -10,10 +10,16 @@ defineProps<{
     status?: String;
 }>();
 
-const user = usePage().props.auth.user;
+const page = usePage();
+const user = page.props.auth.user;
+
+// Early return if no user
+if (!user) {
+    throw new Error('User data is required for this component');
+}
 
 const form = useForm({
-    name: user.name,
+    name: user.name || '',
     email: user.email,
 });
 </script>

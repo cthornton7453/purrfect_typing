@@ -12,7 +12,11 @@
                         <span
                             v-for="(word, index) in typingWords"
                             :key="index"
-                            :class="{ 'text-primary': index < currentIndex }"
+                            class="transition-colors duration-500"
+                            :class="{
+                                'text-primary': index < currentIndex,
+                                'text-text': index >= currentIndex,
+                            }"
                         >
                             {{ word }}
                             <span v-if="index < typingWords.length - 1"> </span>
