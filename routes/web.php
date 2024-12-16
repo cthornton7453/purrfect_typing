@@ -5,6 +5,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
@@ -17,5 +19,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+    ->middleware(['guest', 'throttle:login'])
+    ->name('login');
 
 require __DIR__.'/auth.php';
