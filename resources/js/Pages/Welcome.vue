@@ -36,18 +36,18 @@
                             <div
                                 class="transition-transform duration-200"
                                 :style="{
-                                    transform: `translateY(${-lineHeight * completedLines}px)`,
+                                    transform: `translateY(${-lineHeight * (currentLineIndex.value - 1)}px)`,
                                 }"
                             >
                                 <div
                                     v-for="(line, lineIndex) in visibleLines"
                                     :key="lineIndex"
-                                    class="mb-4 leading-8 tracking-wide"
+                                    class="typing-line mb-4 leading-8 tracking-wide"
                                 >
                                     <span
                                         v-for="(word, wordIndex) in line"
                                         :key="`${lineIndex}-${wordIndex}`"
-                                        class="mr-[1ch]"
+                                        class="word mr-[1ch]"
                                         :class="{
                                             'text-text/50': !isWordActive(
                                                 lineIndex,
@@ -80,11 +80,10 @@
                             <!-- Caret -->
                             <div
                                 ref="caret"
-                                class="pointer-events-none absolute h-[1.5em] w-[2px] bg-primary"
+                                class="pointer-events-none absolute h-[1.5em] w-[2px] bg-primary transition-all duration-100"
                                 :style="caretStyle"
                             ></div>
                         </div>
-
                         <!-- Hidden Input -->
                         <input
                             ref="hiddenInput"
@@ -177,41 +176,63 @@ const caretStyle = computed(() => ({
 }));
 
 const visibleLines = computed(() => {
-    return words.value.slice(
-        completedLines.value,
-        completedLines.value + NUMBER_OF_LINES,
-    );
+    const start = Math.max(0, currentLineIndex.value - 1);
+    return words.value.slice(start, start + NUMBER_OF_LINES);
+});
+
+const wordsTyped = computed(() => {
+    const correctChars = Array.from(typedHistory.value.values()).filter(
+        (char) => char.correct,
+    ).length;
+    return Math.round(correctChars / 5); // Standard WPM calculation
+});
+
+const accuracy = computed(() => {
+    const total = typedHistory.value.size;
+    if (total === 0) return 100;
+
+    const correct = Array.from(typedHistory.value.values()).filter(
+        (char) => char.correct,
+    ).length;
+    return Math.round((correct / total) * 100);
+});
+
+const finalWPM = computed(() => {
+    if (!isTestFinished.value) return 0;
+    return Math.round((wordsTyped.value / TEST_DURATION) * 60);
 });
 
 // Methods
 function updateCaretPosition() {
-    if (!typingContainer.value) return;
+    if (!typingContainer.value || !caret.value) return;
 
-    const wordElements = typingContainer.value.querySelectorAll(
-        'span[class*="mr-[1ch]"]',
-    );
-    const currentWordElement = wordElements[currentWordIndex.value];
+    const lines = typingContainer.value.querySelectorAll('.typing-line');
+    const currentLine = lines[currentLineIndex.value % NUMBER_OF_LINES];
+    
+    if (!currentLine) return;
 
-    if (currentWordElement) {
-        const containerRect = typingContainer.value.getBoundingClientRect();
-        const wordRect = currentWordElement.getBoundingClientRect();
-        const chars = currentWordElement.querySelectorAll('span');
+    const words = currentLine.querySelectorAll('.word');
+    const currentWord = words[currentWordIndex.value];
+    
+    if (!currentWord) return;
 
-        let x = wordRect.left - containerRect.left;
-        if (
-            currentCharIndex.value > 0 &&
-            currentCharIndex.value <= chars.length
-        ) {
-            const charRect =
-                chars[currentCharIndex.value - 1].getBoundingClientRect();
+    const containerRect = typingContainer.value.getBoundingClientRect();
+    const wordRect = currentWord.getBoundingClientRect();
+    
+    // Calculate base position
+    let x = wordRect.left - containerRect.left;
+    let y = wordRect.top - containerRect.top;
+
+    // Adjust x position based on current character
+    if (currentCharIndex.value > 0) {
+        const chars = currentWord.querySelectorAll('span');
+        if (currentCharIndex.value <= chars.length) {
+            const charRect = chars[currentCharIndex.value - 1].getBoundingClientRect();
             x = charRect.right - containerRect.left;
         }
-
-        caretPosition.value = {
-            x,
-            y: wordRect.top - containerRect.top,
-        };
     }
+
+    caretPosition.value = { x, y };
 }
 
 function isWordActive(lineIndex: number, wordIndex: number): boolean {
@@ -322,32 +343,28 @@ function handleInput(event: Event) {
 }
 
 function handleKeydown(event: KeyboardEvent) {
+    if (isTestFinished.value) return;
+
     if (event.key === ' ') {
         event.preventDefault();
         if (userInput.value.length > 0) {
             currentWordIndex.value++;
             userInput.value = '';
+            currentCharIndex.value = 0;
 
             if (currentWordIndex.value >= WORDS_PER_LINE) {
                 currentWordIndex.value = 0;
-
-                // If we're finishing the second line
-                if (currentLineIndex.value === 1) {
-                    completedLines.value++;
-                    // Stay on line 1 (second line becomes first)
-
-                    // Add new line if needed
-                    if (
-                        completedLines.value + NUMBER_OF_LINES >=
-                        words.value.length
-                    ) {
-                        words.value.push(...generateWords());
-                    }
-                } else {
-                    // Move to second line normally
-                    currentLineIndex.value++;
+                currentLineIndex.value++;
+                
+                // Generate more words if needed
+                if (currentLineIndex.value + NUMBER_OF_LINES >= words.value.length) {
+                    words.value.push(...generateWords());
                 }
             }
+            
+            nextTick(() => {
+                updateCaretPosition();
+            });
         }
     }
 }
@@ -356,18 +373,12 @@ onMounted(() => {
     hiddenInput.value?.focus();
     updateCaretPosition();
 
-    // Add resize observer to update caret position
-    const observer = new ResizeObserver(() => {
-        updateCaretPosition();
-    });
-
-    if (typingContainer.value) {
-        observer.observe(typingContainer.value);
-    }
+    // Add window resize listener
+    window.addEventListener('resize', updateCaretPosition);
 
     // Cleanup
     onUnmounted(() => {
-        observer.disconnect();
+        window.removeEventListener('resize', updateCaretPosition);
         if (timerInterval.value) {
             clearInterval(timerInterval.value);
         }
