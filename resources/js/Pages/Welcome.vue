@@ -36,7 +36,7 @@
                             <div
                                 class="transition-transform duration-200"
                                 :style="{
-                                    transform: `translateY(${-lineHeight * (currentLineIndex.value - 1)}px)`,
+                                    transform: `translateY(${-lineHeight * (currentLineIndex - 1)}px)`,
                                 }"
                             >
                                 <div
